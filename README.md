@@ -1,20 +1,19 @@
-# Cordova MLKit Translation
+# Cordova MLKit Blink
 
-[![npm](https://img.shields.io/npm/v/cordova-plugin-mlkit-translate?style=for-the-badge)](https://www.npmjs.com/package/cordova-plugin-mlkit-translate)
-[![npm](https://img.shields.io/npm/dt/cordova-plugin-mlkit-translate?style=for-the-badge)](https://www.npmjs.com/package/cordova-plugin-mlkit-translate)
-[![NPM](https://img.shields.io/npm/l/cordova-plugin-mlkit-translate?style=for-the-badge)](LICENSE)
+[![npm](https://img.shields.io/npm/v/cordova-plugin-mlkit-blink?style=for-the-badge)](https://www.npmjs.com/package/cordova-plugin-mlkit-blink)
+[![npm](https://img.shields.io/npm/dt/cordova-plugin-mlkit-blink?style=for-the-badge)](https://www.npmjs.com/package/cordova-plugin-mlkit-blink)
+[![NPM](https://img.shields.io/npm/l/cordova-plugin-mlkit-blink?style=for-the-badge)](LICENSE)
 
-Cordova Plugin that implements MLKit Translation and Language Identification features.
+Cordova Plugin that implements MLKit Face Detection and Face Tracking for blink validation, returns a base64 image of the face after blink ends.
 
 Supports both iOS and Android.
 
-This plugin uses Google's MLKit On-device Translation services, so make sure you follow the steps to create a firebase project ([Android](https://firebase.google.com/docs/android/setup) | [iOS](https://firebase.google.com/docs/ios/setup)) up to step 3 (where you get the google-services.json or GoogleService-Info.plist). Ignore if you already have google-services.json or GoogleService-Info.plist files.
+This plugin uses Google's MLKit On-device Face Detection and Face Tracking services, so make sure you follow the steps to create a firebase project ([Android](https://firebase.google.com/docs/android/setup) | [iOS](https://firebase.google.com/docs/ios/setup)) up to step 3 (where you get the google-services.json or GoogleService-Info.plist). Ignore if you already have google-services.json or GoogleService-Info.plist files.
 
-Additionally, make sure you follow [Google's usage guidelines](https://firebase.google.com/docs/ml-kit/translation-terms) for MLKit usage.
+Additionally, make sure you follow [Google's usage guidelines](https://firebase.google.com/docs/ml-kit/detect-faces) for MLKit Face Detection usage.
 
-For translation, MLKit and by extension this plugin support the [following languages](https://firebase.google.com/docs/ml-kit/translation-language-support).
+For face detection, MLKit and by extension this plugin support the [following features]https://firebase.google.com/docs/ml-kit/detect-faces).
 
-For language identification, the plugin supports the [following languages](https://firebase.google.com/docs/ml-kit/langid-support).
 
 #### Table of Contents
 
@@ -36,18 +35,19 @@ For language identification, the plugin supports the [following languages](https
 - Install the plugin by adding it to your project's config.xml:
 
 ```
-<plugin name="cordova-plugin-mlkit-translate" spec="latest" />
+<plugin name="cordova-plugin-mlkit-blink" spec="latest" />
 ```
 
 or
 
 ```
-cordova plugin add cordova-plugin-mlkit-translate
+cordova plugin add cordova-plugin-mlkit-blink
 ```
 
 - *(Optional) If you're using ionic, make sure you use the Ionic native wrapper.*
 ```
-npm install @ionic-native/mlkit-translate
+#npm install @ionic-native/mlkit-translate
+npm install cordova-plugin-mlkit-blink
 ```
 
 - **Make sure you have your google-services.json or GoogleService-Info.plist file in your project's root folder.**
@@ -67,20 +67,22 @@ npm install @ionic-native/mlkit-translate
 ## Variables
 These variables are android only
 
-|                  Variable                  | Default |
-| :----------------------------------------: | :-----: |
-|    FIREBASE_ML_NATURAL_LANGUAGE_VERSION    | 22.0.0  |
-| FIREBASE_ML_NATURAL_LANGUAGE_MODEL_VERSION | 20.0.7  |
-|  FIREBASE_ML_NATURAL_LANGUAGE_ID_VERSION   | 20.0.7  |
+|                  Variable                   | Default |
+| :----------------------------------------:  | :-----: |
+|    FIREBASE_ML_NATURAL_LANGUAGE_VERSION     | 22.0.0  |
+| FIREBASE_ML_NATURAL_LANGUAGE_MODEL_VERSION  | 20.0.7  |
+|  FIREBASE_ML_NATURAL_LANGUAGE_ID_VERSION    | 20.0.7  |
+|  FIREBASE_ML_VISION_ID_VERSION              | 24.0.1  |
+|  FIREBASE_ML_VISION_FACE_MODEL_ID_VERSION   | 19.0.0  |
 
 ## API
 
-You can access all these methods via the window["MLKitTranslate"] object. 
+You can access all these methods via the window["MLKitBlink"] object. 
 
 If you're using the Ionic Native wrapper, then add the plugin to your module
 
 ```
-import { MLKitTranslate } from '@ionic-native/mlkit-translate/ngx';
+import { MLKitBlink } from '@ionic-native/mlkit-blink/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -89,7 +91,7 @@ import { MLKitTranslate } from '@ionic-native/mlkit-translate/ngx';
   ],
   providers: [
     ...
-    MLKitTranslate,
+    MLKitBlink,
     ...
   ],
   bootstrap: [AppComponent]
@@ -100,9 +102,9 @@ export class AppModule {}
 And then inject it into the component you want.
 
 ```
-import { MLKitTranslate } from '@ionic-native/ml-kit-translate';
+import { MLKitBlink } from '@ionic-native/ml-kit-blink';
 
-constructor(private mlkitTranslate: MLKitTranslate) { }
+constructor(private mlkitBlink: MLKitBlink) { }
 ...
 ```
 
