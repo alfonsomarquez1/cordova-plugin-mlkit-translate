@@ -70,7 +70,7 @@ You can access all these methods via the window["MLKitBlink"] object.
 If you're using the Ionic Native wrapper, then add the plugin to your module
 
 ```
-import { MLKitBlink } from '@ionic-native/mlkit-blink/ngx';
+import { MLKitBlink } from '@mariachi/mlkit-blink/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -90,7 +90,7 @@ export class AppModule {}
 And then inject it into the component you want.
 
 ```
-import { MLKitBlink } from '@ionic-native/ml-kit-blink';
+import { MLKitBlink } from '@mariachi/mlkit-blink';
 
 constructor(private mlkitBlink: MLKitBlink) { }
 ...
