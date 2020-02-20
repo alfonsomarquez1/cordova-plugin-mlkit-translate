@@ -65,7 +65,7 @@ These variables are android only
 
 ## API
 
-You can access all these methods via the window["MLKitBlink"] object. 
+You can access the method via the window["MLKitBlink"] object. 
 
 If you're using the Ionic Native wrapper, then add the plugin to your module
 
