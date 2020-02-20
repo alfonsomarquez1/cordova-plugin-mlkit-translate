@@ -1,27 +1,28 @@
 {
-  "name": "cordova-plugin-mlkit-translate",
-  "version": "1.0.1",
-  "author": "Rigel Glen <rigelglen@gmail.com>",
-  "license": "MIT",
-  "description": "Cordova plugin for MLKit translate.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rigelglen/cordova-plugin-mlkit-translate"
-  },
-  "cordova": {
-    "id": "cordova-plugin-mlkit-translate",
-    "platforms": [
-      "android",
-      "ios"
+    "name": "cordova-plugin-mlkit-blink",
+    "version": "1.0.1",
+    "author": "Jose Lopez <jose@mariachi.io >",
+    "license": "MIT",
+    "description": "Cordova plugin for MLKit Face Detection and Blink Validation.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alfonsomarquez1/cordova-plugin-mlkit-translate"
+    },
+    "cordova": {
+        "id": "cordova-plugin-mlkit-blink",
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "keywords": [
+        "ecosystem:cordova",
+        "cordova-android",
+        "cordova-ios",
+        "firebase",
+        "mlkit",
+        "mlkit-vision",
+        "face",
+        "kotlin"
     ]
-  },
-  "keywords": [
-    "ecosystem:cordova",
-    "cordova-android",
-    "cordova-ios",
-    "firebase",
-    "mlkit",
-    "mlkit-translate",
-    "translate"
-  ]
 }

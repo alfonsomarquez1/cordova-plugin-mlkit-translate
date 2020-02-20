@@ -1,5 +1,5 @@
-<plugin id="cordova-plugin-mlkit-translate" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>MLKit Translate Plugin</name>
+<plugin id="cordova-plugin-mlkit-blink" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>MLKit Blink Plugin</name>
 
     <license>MIT</license>
 
@@ -10,36 +10,69 @@
         <engine name="cordova-ios" version=">=5" />
     </engines>
 
-    <js-module name="MLKitTranslate" src="www/translateText.js">
-        <clobbers target="MLKitTranslate" />
+    <js-module name="MLKitBlink" src="www/blink.js">
+        <clobbers target="MLKitBlink" />
     </js-module>
 
-    <platform name="android">
+    <!-- Add version support for Kotlin 1.3 -->
+    <platform name="android" kotlin="1.3">
         <dependency id="cordova-plugin-firebasex" version="^7.0.1" />
+        <!-- Add support for Kotlin 1.3 -->
+        <dependency id="cordova-support-kotlin" version="^1.2.1" />
+        <!-- Add Kotlin 1.3 plugins -->
+        <apply-plugin>kotlin-android</apply-plugin>
+        <apply-plugin>kotlin-kapt</apply-plugin>
+        <apply-plugin>kotlin-android-extensions</apply-plugin>
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="MLKitTranslate">
-                <param name="android-package" value="com.rigelglen.MLKitTranslate" />
+            <feature name="MLKitBlink">
+                <param name="android-package" value="com.mariachi.MLKitBlink" />
             </feature>
         </config-file>
 
-        <source-file src="src/android/com/rigelglen/MLKitTranslate.java" target-dir="src/com/rigelglen" />
+        <source-file src="src/android/com/mariachi/MLKitBlink.java" target-dir="src/com/mariachi" />
 
-        <preference name="FIREBASE_ML_NATURAL_LANGUAGE_VERSION" default="22.0.0" />
-        <preference name="FIREBASE_ML_NATURAL_LANGUAGE_MODEL_VERSION" default="20.0.7" />
-        <preference name="FIREBASE_ML_NATURAL_LANGUAGE_ID_VERSION" default="20.0.7" />
+        <!-- Add camera permissions  -->
+        <edit-file mode="merge" target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-feature android:name="android.hardware.camera" />
+            <uses-feature android:name="android.hardware.camera.front" />
+        </edit-file>
+        <!-- Add metadata to update ml vision dependencies updates after downloading the app from the Store -->
+        <edit-file mode="merge" target="AndroidManifest.xml" parent="/manifest/application">
+            <meta-data android:name="com.google.firebase.ml.vision.DEPENDENCIES" android:value="face" />
+        </edit-file>
+        <!-- Kotlin coroutines and lifecycle dependencies -->
+        <apply-dependency>org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0</apply-dependency>
+        <apply-dependency>androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03</apply-dependency>
+                
+        <!-- Add CameraX dependencies -->        
+        <preference name="CAMERAX_CORE_VERSION" default="1.0.0-alpha09" />
+        <preference name="CAMERAX_CAMERA2_VERSION" default="1.0.0-alpha09" />
+        <preference name="CAMERAX_VIEW_VERSION" default="1.0.0-alpha06" />
+        <preference name="CAMERAX_EXT_VERSION" default="1.0.0-alpha06" />
+        <preference name="CAMERAX_LIFECYCLE_VERSION" default="1.0.0-alpha02" />
+               
+        <framework src="androidx.camera:camera-core:$CAMERAX_CORE_VERSION" />
+        <framework src="androidx.camera:camera-camera2:$CAMERAX_CAMERA2_VERSION" />
+        <framework src="androidx.camera:camera-view:$CAMERAX_VIEW_VERSION" />
+        <framework src="androidx.camera:camera-extensions:$CAMERAX_EXT_VERSION" />
+        <framework src="androidx.camera:camera-lifecycle:$CAMERAX_LIFECYCLE_VERSION" />
 
-        <framework src="com.google.firebase:firebase-ml-natural-language:$FIREBASE_ML_NATURAL_LANGUAGE_VERSION" />
-        <framework src="com.google.firebase:firebase-ml-natural-language-translate-model:$FIREBASE_ML_NATURAL_LANGUAGE_MODEL_VERSION" />
-        <framework src="com.google.firebase:firebase-ml-natural-language-language-id-model:$FIREBASE_ML_NATURAL_LANGUAGE_ID_VERSION" />
+        <!-- Add ML Vision dependencies for Android -->
+        <preference name="FIREBASE_ML_VISION_ID_VERSION" default="24.0.1" />
+        <preference name="FIREBASE_ML_VISION_FACE_MODEL_VERSION" default="19.0.0" />
+
+        <framework src="com.google.firebase:firebase-ml-vision:$FIREBASE_ML_VISION_ID_VERSION" />
+        <framework src="com.google.firebase:firebase-ml-vision-face-model:$FIREBASE_ML_VISION_FACE_MODEL_VERSION" />
     </platform>
 
     <platform name="ios">
         <dependency id="cordova-plugin-add-swift-support" version="2.0.2" />
 
         <config-file parent="/*" target="config.xml">
-            <feature name="MLKitTranslate">
-                <param name="ios-package" value="MLKitTranslate" />
+            <feature name="MLKitBlink">
+                <param name="ios-package" value="MLKitBlink" />
                 <param name="onload" value="true" />
             </feature>
         </config-file>
@@ -51,16 +84,18 @@
             <string>production</string>
         </config-file>
 
-        <source-file src="src/ios/MLKitTranslate.swift" />
+        <source-file src="src/ios/MLKitBlink.swift" />
+
+        <!-- Use Swift 5 as default Language Version -->
+        <preference name="UseSwiftLanguageVersion" value="5" />
 
         <podspec>
             <config>
                 <source url="https://cdn.cocoapods.org/" />
             </config>
             <pods use-frameworks="true">
-                <pod name="FirebaseMLNaturalLanguage" spec="~> 0.17.0" />
-                <pod name="FirebaseMLNLLanguageID" spec="~> 0.17.0" />
-                <pod name="FirebaseMLNLTranslate" spec="~> 0.17.0" />
+                <pod name="Firebase/MLVision" spec="~> 0.19.0" />
+                <pod name="Firebase/MLVisionFaceModel" spec="~> 0.19.0" />
             </pods>
         </podspec>
 
